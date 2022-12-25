@@ -1,0 +1,28 @@
+name: 🧪 Build and test
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+
+jobs:
+  build:
+    name: 🏗️ Build and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔽 Check out
+        uses: actions/checkout@v3
+
+      - name: 🏗️ Setup java
+        uses: actions/setup-java@v3
+        with:
+          distribution: zulu
+          java-version: '17'
+
+      - name: 🧪 Build with Maven
+        run: |
+          mvn \
+            --no-transfer-progress \
+            --batch-mode \
+            test

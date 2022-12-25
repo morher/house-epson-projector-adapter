@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>net.morher.house</groupId>
+		<artifactId>house-adapters-parent</artifactId>
+		<version>1.2</version>
+	</parent>
+
+	<name>Epson Projector Adapter</name>
+	<groupId>net.morher.house.adapter</groupId>
+	<artifactId>epson-projector-adapter</artifactId>
+	<version>${revision}</version>
+	<packaging>jar</packaging>
+	
+	<properties>
+		<mainClass>net.morher.house.epson.projector.EpsonProjectorAdapter</mainClass>
+	</properties>
+
+</project>

@@ -1,0 +1,44 @@
+name: 📦 Release
+on:
+  push:
+    branches:
+      - 'main'
+
+env:
+  VERSION: 1.${{ github.run_number }}
+
+jobs:
+  build:
+    name: 🏗️ Build and release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔽 Check out
+        uses: actions/checkout@v3
+
+      - name: 🏗️ Setup java
+        uses: actions/setup-java@v3
+        with:
+          distribution: zulu
+          java-version: '17'
+
+      - name: 🧪 Build and release with Maven
+        run: |
+          mvn \
+            --no-transfer-progress \
+            --batch-mode \
+            -Pupload-docker-image\
+            -Drevision=${VERSION} \
+            -Dtest.log.level=OFF \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            install
+
+      - name: 🐋 Build docker image
+        run: |
+          mvn \
+            --no-transfer-progress \
+            --batch-mode \
+            -Pdocker-tag-latest\
+            -Drevision=${VERSION} \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            jib:build
